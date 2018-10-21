@@ -7,11 +7,11 @@ Update - modify data on a longboard
 Delete - remove data on a longboard
 """
 
-
 import shelve
 from flask import Flask, g
 from flask_restful import Resource, Api, reqparse
-
+from bs4 import BeautifulSoup
+from markdown import markdown
 
 app = Flask(__name__)
 api = Api(app=app)
@@ -45,6 +45,24 @@ def teardown_db(exception):
         print(exception)
 
 
+def read_md(section_number):
+    """
+    Reads from README.md, selects a designated section of the text to be returned by the OPTIONS requests below.
+
+    :param section_number: which section to be selected- 0 or 1
+    :type: int
+
+    :return: the text of the selected section.
+    :rtype: str
+    """
+
+    with open('README.md', 'r') as md_file:
+        html = markdown(md_file.read())
+        r_message = BeautifulSoup(html, 'html5lib').findAll('ul')[0].findAll('li')[section_number].findAll('p')[0].text
+
+    return str(r_message)
+
+
 class LongboardList(Resource):
     """ The API Resource that involves the list of Longboard objects. """
 
@@ -58,23 +76,30 @@ class LongboardList(Resource):
         for key in keys:
             longboards.append(shelf[key])
 
-        return {'message': 'Success', 'data': longboards}, 200
+        r_status = 204 if len(longboards) == 0 else 200
+
+        return {'message': 'Success', 'data': longboards}, r_status
 
     @staticmethod
     def post():
         parser = reqparse.RequestParser()
 
-        parser.add_argument('id', required=True)
-        parser.add_argument('name', required=True)
-        parser.add_argument('length', required=True)
-        parser.add_argument('width', required=True)
+        for attribute in ['id', 'name', 'length', 'width']:
+            parser.add_argument(attribute, required=True)
 
         args = parser.parse_args()
 
         shelf = get_db()
         shelf[args['id']] = args
 
-        return {'message': 'Longboard registered', 'data': args}, 200
+        return {'message': 'Longboard registered', 'data': args}, 201
+
+    @staticmethod
+    def options():
+
+        r_message = read_md(0)
+
+        return {'message': r_message}, 200
 
 
 class Longboard(Resource):
@@ -84,16 +109,26 @@ class Longboard(Resource):
     def get(identifier):
         shelf = get_db()
 
-        if not (identifier in shelf):
+        if identifier not in shelf:
             return {'message': 'Longboard not found', 'data': {}}, 404
 
         return {'message': 'Longboard found', 'data': shelf[identifier]}, 200
 
     @staticmethod
+    def head(identifier):
+
+        shelf = get_db()
+
+        if identifier not in shelf:
+            return '', 404
+
+        return '', 204
+
+    @staticmethod
     def delete(identifier):
         shelf = get_db()
 
-        if not (identifier in shelf):
+        if identifier not in shelf:
             return {'message': 'Longboard not found', 'data': {}}, 404
 
         del shelf[identifier]
@@ -104,33 +139,51 @@ class Longboard(Resource):
 
         shelf = get_db()
 
-        if not (identifier in shelf):
+        if identifier not in shelf:
             return {'message': 'Longboard not found', 'data': {}}, 404
 
         parser = reqparse.RequestParser()
 
-        parser.add_argument('name', required=False)
-        parser.add_argument('length', required=False)
-        parser.add_argument('width', required=False)
+        for attribute in ['name', 'length', 'width']:
+            parser.add_argument(attribute, required=True)
 
         args = parser.parse_args()
 
-        # TODO: make the following more efficient- there is definitely shorter ways to do this.
-
-        new_db = shelf[identifier]
-
-        if args.get('name') is not None:
-            new_db['name'] = args.get('name')
-
-        if args.get('length') is not None:
-            new_db['length'] = args.get('length')
-
-        if args.get('width') is not None:
-            new_db['width'] = args.get('width')
-
-        shelf[identifier] = new_db
+        for attribute in args.keys():
+            shelf[identifier][attribute] = args.get(attribute)
 
         return {'message': 'Longboard updated', 'data': shelf[identifier]}, 200
+
+    @staticmethod
+    def patch(identifier):
+
+        shelf = get_db()
+
+        if identifier not in shelf:
+            return {'message': 'Longboard not found', 'data': {}}, 404
+
+        parser = reqparse.RequestParser()
+
+        for attribute in ['name', 'length', 'width']:
+            parser.add_argument(attribute, required=False)
+
+        args = parser.parse_args()
+
+        if len(args) != 3:
+            return '', 400
+
+        for attribute in args.keys():
+            if args.get(attribute) is not None:
+                shelf[identifier][attribute] = args.get(attribute)
+
+        return {'message': 'Longboard patched', 'data': shelf[identifier]}, 200
+
+    @staticmethod
+    def options(identifier):
+
+        r_message = read_md(1).replace('{identifier}', identifier)
+
+        return {'message': r_message}, 200
 
 
 api.add_resource(LongboardList, '/longboards')
