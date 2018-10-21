@@ -149,8 +149,7 @@ class Longboard(Resource):
 
         args = parser.parse_args()
 
-        for attribute in args.keys():
-            shelf[identifier][attribute] = args.get(attribute)
+        shelf[identifier] = args
 
         return {'message': 'Longboard updated', 'data': shelf[identifier]}, 200
 
@@ -169,12 +168,16 @@ class Longboard(Resource):
 
         args = parser.parse_args()
 
-        if len(args) != 3:
+        if None not in args.values():
             return '', 400
+
+        updated_dict = dict()
 
         for attribute in args.keys():
             if args.get(attribute) is not None:
-                shelf[identifier][attribute] = args.get(attribute)
+                updated_dict[attribute] = args.get(attribute)
+
+        shelf[identifier] = {**shelf[identifier], **updated_dict}
 
         return {'message': 'Longboard patched', 'data': shelf[identifier]}, 200
 

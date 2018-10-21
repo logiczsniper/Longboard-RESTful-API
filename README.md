@@ -3,7 +3,8 @@ The following are the possible endpoints and their possible requests:
 
 -  To all longboards- <br>
         GET /longboards <br>
-        POST /longboards
+        POST /longboards <br>
+        OPTIONS /longboards
 
 -  To a specific longboard- <br>
         GET /longboard/{identifier} <br>
