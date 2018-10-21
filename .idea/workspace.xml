@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96290ebf-066f-4098-b515-b95a1b33a64d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/longboard_registry/__init__.py" afterPath="$PROJECT_DIR$/longboard_registry/__init__.py" />
-      <change beforePath="$PROJECT_DIR$/longboards.db.bak" afterPath="$PROJECT_DIR$/longboards.db.bak" />
-      <change beforePath="$PROJECT_DIR$/longboards.db.dat" afterPath="$PROJECT_DIR$/longboards.db.dat" />
-      <change beforePath="$PROJECT_DIR$/longboards.db.dir" afterPath="$PROJECT_DIR$/longboards.db.dir" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.308338">
+    <splitter split-orientation="horizontal" split-proportion="0.89423615">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
           <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
@@ -48,8 +43,8 @@
             <entry file="file://$PROJECT_DIR$/README.md">
               <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
                 <state split_layout="SPLIT">
-                  <first_editor relative-caret-position="105">
-                    <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+                  <first_editor relative-caret-position="168">
+                    <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
                     <folding />
                   </first_editor>
                   <second_editor>
@@ -76,8 +71,8 @@
           <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/longboard_registry/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="231">
-                  <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+                <state relative-caret-position="-838">
+                  <caret line="99" column="30" lean-forward="true" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
                   <folding>
                     <element signature="e#245#258#0" expanded="true" />
                   </folding>
@@ -106,8 +101,8 @@
         <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/run.py" />
         <option value="$PROJECT_DIR$/docker-compose.yml" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/longboard_registry/__init__.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -259,6 +254,8 @@
           <caret line="1" column="3" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
           <folding>
             <element signature="e#245#258#0" expanded="true" />
+            <marker date="1540118822239" expanded="true" signature="4180:4271" ph="..." />
+            <marker date="1540118822239" expanded="true" signature="4555:4598" ph="..." />
           </folding>
         </state>
       </provider>
@@ -306,6 +303,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#245#258#0" expanded="true" />
+            <marker date="1540118822239" expanded="true" signature="4180:4271" ph="..." />
+            <marker date="1540118822239" expanded="true" signature="4555:4598" ph="..." />
           </folding>
         </state>
       </provider>
@@ -345,6 +344,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#245#258#0" expanded="true" />
+            <marker date="1540118822239" expanded="true" signature="4180:4271" ph="..." />
+            <marker date="1540118822239" expanded="true" signature="4555:4598" ph="..." />
           </folding>
         </state>
       </provider>
@@ -419,26 +420,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/longboard_registry/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#245#258#0" expanded="true" />
+            <marker date="1540118822239" expanded="true" signature="4180:4271" ph="..." />
+            <marker date="1540118822239" expanded="true" signature="4555:4598" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="105">
-            <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+          <first_editor relative-caret-position="168">
+            <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
             <folding />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />
           </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/longboard_registry/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#245#258#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
