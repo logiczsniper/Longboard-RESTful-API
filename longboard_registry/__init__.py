@@ -5,7 +5,10 @@ Create - add new data on a longboard
 Read - get information on an existing longboard
 Update - modify data on a longboard
 Delete - remove data on a longboard
+And more...
 """
+
+from longboard_registry.method_contants import ApiMessage, LongboardTrait
 
 import shelve
 from flask import Flask, g
@@ -70,7 +73,6 @@ class LongboardList(Resource):
     def get():
         shelf = get_db()
         keys = list(shelf.keys())
-
         longboards = []
 
         for key in keys:
@@ -78,34 +80,33 @@ class LongboardList(Resource):
 
         r_status = 204 if len(longboards) == 0 else 200
 
-        return {'message': 'Success', 'data': longboards}, r_status
+        return {ApiMessage.MESSAGE: 'Success', ApiMessage.DATA: longboards}, r_status
 
     @staticmethod
     def post():
         parser = reqparse.RequestParser()
 
-        for attribute in ['id', 'name', 'length', 'width']:
+        for attribute in [LongboardTrait.ID, LongboardTrait.NAME, LongboardTrait.LENGTH, LongboardTrait.WIDTH]:
             parser.add_argument(attribute, required=True)
 
         args = parser.parse_args()
-
         shelf = get_db()
-        shelf[args['id']] = args
+        shelf[args[LongboardTrait.ID]] = args
 
-        return {'message': 'Longboard registered', 'data': args}, 201
+        return {ApiMessage.MESSAGE: 'Longboard registered', ApiMessage.DATA: args}, 201
 
     @staticmethod
     def options():
         r_message = read_md(0)
 
-        return {'message': r_message}, 200
+        return {ApiMessage.MESSAGE: r_message}, 200
 
     @staticmethod
     def delete():
         shelf = get_db()
         shelf.clear()
 
-        return {'message': 'Longboards cleared'}, 204
+        return {ApiMessage.MESSAGE: 'Longboards cleared'}, 204
 
 
 class Longboard(Resource):
@@ -116,13 +117,12 @@ class Longboard(Resource):
         shelf = get_db()
 
         if identifier not in shelf:
-            return {'message': 'Longboard not found', 'data': {}}, 404
+            return {ApiMessage.MESSAGE: 'Longboard not found', ApiMessage.DATA: {}}, 404
 
-        return {'message': 'Longboard found', 'data': shelf[identifier]}, 200
+        return {ApiMessage.MESSAGE: 'Longboard found', ApiMessage.DATA: shelf[identifier]}, 200
 
     @staticmethod
     def head(identifier):
-
         shelf = get_db()
 
         if identifier not in shelf:
@@ -135,41 +135,39 @@ class Longboard(Resource):
         shelf = get_db()
 
         if identifier not in shelf:
-            return {'message': 'Longboard not found', 'data': {}}, 404
+            return {ApiMessage.MESSAGE: 'Longboard not found', ApiMessage.DATA: {}}, 404
 
         del shelf[identifier]
+
         return '', 204
 
     @staticmethod
     def put(identifier):
-
         shelf = get_db()
 
         if identifier not in shelf:
-            return {'message': 'Longboard not found', 'data': {}}, 404
+            return {ApiMessage.MESSAGE: 'Longboard not found', ApiMessage.DATA: {}}, 404
 
         parser = reqparse.RequestParser()
 
-        for attribute in ['name', 'length', 'width']:
+        for attribute in [LongboardTrait.NAME, LongboardTrait.LENGTH, LongboardTrait.WIDTH]:
             parser.add_argument(attribute, required=True)
 
         args = parser.parse_args()
-
         shelf[identifier] = args
 
-        return {'message': 'Longboard updated', 'data': shelf[identifier]}, 200
+        return {ApiMessage.MESSAGE: 'Longboard updated', ApiMessage.DATA: shelf[identifier]}, 200
 
     @staticmethod
     def patch(identifier):
-
         shelf = get_db()
 
         if identifier not in shelf:
-            return {'message': 'Longboard not found', 'data': {}}, 404
+            return {ApiMessage.MESSAGE: 'Longboard not found', ApiMessage.DATA: {}}, 404
 
         parser = reqparse.RequestParser()
 
-        for attribute in ['name', 'length', 'width']:
+        for attribute in [LongboardTrait.NAME, LongboardTrait.LENGTH, LongboardTrait.WIDTH]:
             parser.add_argument(attribute, required=False)
 
         args = parser.parse_args()
@@ -185,13 +183,13 @@ class Longboard(Resource):
 
         shelf[identifier] = {**shelf[identifier], **updated_dict}
 
-        return {'message': 'Longboard patched', 'data': shelf[identifier]}, 200
+        return {ApiMessage.MESSAGE: 'Longboard patched', ApiMessage.DATA: shelf[identifier]}, 200
 
     @staticmethod
     def options(identifier):
         r_message = read_md(1).replace('{identifier}', identifier)
 
-        return {'message': r_message}, 200
+        return {ApiMessage.MESSAGE: r_message}, 200
 
 
 api.add_resource(LongboardList, '/longboards')
