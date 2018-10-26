@@ -16,7 +16,8 @@ The following are the possible endpoints and their possible requests:
 - To all longboards- <br>
         GET /longboards <br>
         POST /longboards <br>
-        OPTIONS /longboards
+        OPTIONS /longboards <br>
+        DELETE /longboards
 
 - To a specific longboard- <br>
         GET /longboard/{identifier} <br>

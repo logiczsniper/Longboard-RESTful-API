@@ -96,10 +96,16 @@ class LongboardList(Resource):
 
     @staticmethod
     def options():
-
         r_message = read_md(0)
 
         return {'message': r_message}, 200
+
+    @staticmethod
+    def delete():
+        shelf = get_db()
+        shelf.clear()
+
+        return {'message': 'Longboards cleared'}, 204
 
 
 class Longboard(Resource):
@@ -132,7 +138,7 @@ class Longboard(Resource):
             return {'message': 'Longboard not found', 'data': {}}, 404
 
         del shelf[identifier]
-        return '', 200
+        return '', 204
 
     @staticmethod
     def put(identifier):
@@ -183,7 +189,6 @@ class Longboard(Resource):
 
     @staticmethod
     def options(identifier):
-
         r_message = read_md(1).replace('{identifier}', identifier)
 
         return {'message': r_message}, 200
