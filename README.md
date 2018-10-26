@@ -10,6 +10,12 @@ on 'longboard' objects that are stored in a Shelve database. The following is th
 }
 ```
 
+##### Project Structure
+The project is divided into two sections: <br>
+1. Java <br> On the Java side is the swift GUI and the HTTP methods using Unirest that are used by the GUI.
+2. Python <br> On the Python side is the API itself. It is built with Flask and Flask-RESTful. In order to run the Java GUI, the Flask application is run locally.
+
+
 ##### Options
 The following are the possible endpoints and their possible requests:
 
