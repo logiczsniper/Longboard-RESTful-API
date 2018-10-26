@@ -41,3 +41,6 @@ The server cannot or will not process the request due to an apparent client erro
 - `404` Not Found <br>
 The requested resource could not be found but may be available in the future.
 
+##### Acknowledgments
+There are two main sources of information that helped me incredibly: [Jake Wright](https://github.com/jakewright) and [Assertible](https://assertible.com/blog/7-http-methods-every-web-developer-should-know-and-how-to-test-them#head). Thanks for helping me learn more about APIs!
+
