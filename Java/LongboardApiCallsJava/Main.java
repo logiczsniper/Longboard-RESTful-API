@@ -1,9 +1,12 @@
 package LongboardApiCallsJava;
 
 import javax.swing.*;
+
 import LongboardApiCallsJava.src.LongboardApiRequests;
+import LongboardApiCallsJava.src.SpecificLongboardApiRequests;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -26,13 +29,25 @@ public class Main {
 
         // TODO: actual methods so that this app can interact with my api
 
-        Map<String, String> new_args = new HashMap<>();
-        new_args.put("name", "Board from JAVA BABY");
-        new_args.put("length", "1");
-        new_args.put("width", "25");
-        new_args.put("id", "001");
+        /**
+         *         LinkedHashMap<String, String> new_args = new LinkedHashMap<>();
+         *         new_args.put("id", "003");
+         *         new_args.put("name", "Board from JAVA two");
+         *         new_args.put("length", "1");
+         *         new_args.put("width", "25");
+         *
+         *         LongboardApiRequests.postLongboard(new_args);
 
-        LongboardApiRequests.postLongboard(new_args);
+         LinkedHashMap<String, String> new_args = new LinkedHashMap<>();
+         new_args.put("name", "Board from JAVA");
+         new_args.put("length", "1");
+         new_args.put("width", "25");
+         SpecificLongboardApiRequests.putLongboard("001", new_args);
+         */
+
+        LinkedHashMap<String, String> new_args = new LinkedHashMap<>();
+        new_args.put("length", "8");
+        SpecificLongboardApiRequests.patchLongboard("001", new_args);
     }
 
 }

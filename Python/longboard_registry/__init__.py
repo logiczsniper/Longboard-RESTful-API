@@ -154,7 +154,7 @@ class Longboard(Resource):
             parser.add_argument(attribute, required=True)
 
         args = parser.parse_args()
-        shelf[identifier] = args
+        shelf[identifier] = {**shelf[identifier], **args}
 
         return {ApiMessage.MESSAGE: 'Longboard updated', ApiMessage.DATA: shelf[identifier]}, 200
 
@@ -172,13 +172,13 @@ class Longboard(Resource):
 
         args = parser.parse_args()
 
-        if None not in args.values():
+        if "" not in args.values():
             return '', 400
 
         updated_dict = dict()
 
         for attribute in args.keys():
-            if args.get(attribute) is not None:
+            if args.get(attribute) is not "":
                 updated_dict[attribute] = args.get(attribute)
 
         shelf[identifier] = {**shelf[identifier], **updated_dict}
