@@ -9,8 +9,8 @@ import java.util.LinkedHashMap;
 
 
 /**
- * This is a gui to be used in conjunction with the Python Flask api.
- * It serves as a front end product for the api.
+ * This is a GUI to be used in conjunction with the Python Flask API.
+ * It serves as a front end product for the API.
  *
  * @author Logan Czernel
  * @since 26-10-2018
@@ -46,7 +46,7 @@ public class Main {
 
          System.out.println(LongboardApiRequests.simpleLongboardRequest("get"));
          */
-        
+
     }
 
 }
