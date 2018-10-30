@@ -10,34 +10,37 @@ public class LongboardApiRequests {
 
     private static String general_endpoint = "http://localhost:5000/longboards";
 
-    public static void getLongboards() {
+    public static String simpleLongboardRequest(String requestType) {
         try {
-            HttpResponse<String> response = Unirest.get(general_endpoint)
-                    .asString();
-            System.out.println(response.getBody());
+            HttpResponse<String> response;
+
+            switch (requestType) {
+                case "get":
+                    response = Unirest.get(general_endpoint)
+                            .asString();
+                    break;
+
+                case "clear":
+                    response = Unirest.delete(general_endpoint)
+                            .asString();
+                    break;
+
+                case "options":
+                    response = Unirest.options(general_endpoint)
+                            .asString();
+                    break;
+
+                default:
+                    return String.format("Invalid requestType: %s", requestType);
+            }
+
+            return response.getBody();
         } catch (UnirestException ignore) {
         }
+        return "";
     }
 
-    public static void clearLongboards() {
-        try {
-            HttpResponse<String> response = Unirest.delete(general_endpoint)
-                    .asString();
-            System.out.println(response.getBody());
-        } catch (UnirestException ignore) {
-        }
-    }
-
-    public static void optionsLongboards() {
-        try {
-            HttpResponse<String> response = Unirest.options(general_endpoint)
-                    .asString();
-            System.out.println(response.getBody());
-        } catch (UnirestException ignore) {
-        }
-    }
-
-    public static void postLongboard(LinkedHashMap<String, String> args) {
+    public static String postLongboard(LinkedHashMap<String, String> args) {
         try {
             HttpResponse<String> response = Unirest.post(general_endpoint)
                     .queryString("id", args.get("id"))
@@ -45,9 +48,10 @@ public class LongboardApiRequests {
                     .queryString("length", args.get("length"))
                     .queryString("width", args.get("width"))
                     .asString();
-            System.out.println(response.getBody());
+            return response.getBody();
         } catch (UnirestException ignore) {
         }
+        return "";
     }
 
 }

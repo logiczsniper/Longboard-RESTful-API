@@ -5,9 +5,7 @@ import javax.swing.*;
 import LongboardApiCallsJava.src.LongboardApiRequests;
 import LongboardApiCallsJava.src.SpecificLongboardApiRequests;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 /**
@@ -27,8 +25,6 @@ public class Main {
 
         // TODO: aesthetics - icon image and sounds
 
-        // TODO: actual methods so that this app can interact with my api
-
         /**
          *         LinkedHashMap<String, String> new_args = new LinkedHashMap<>();
          *         new_args.put("id", "003");
@@ -43,11 +39,14 @@ public class Main {
          new_args.put("length", "1");
          new_args.put("width", "25");
          SpecificLongboardApiRequests.putLongboard("001", new_args);
-         */
 
-        LinkedHashMap<String, String> new_args = new LinkedHashMap<>();
-        new_args.put("length", "8");
-        SpecificLongboardApiRequests.patchLongboard("001", new_args);
+         LinkedHashMap<String, String> new_args = new LinkedHashMap<>();
+         new_args.put("length", "8");
+         SpecificLongboardApiRequests.patchLongboard("001", new_args);
+
+         System.out.println(LongboardApiRequests.simpleLongboardRequest("get"));
+         */
+        
     }
 
 }

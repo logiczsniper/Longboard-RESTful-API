@@ -10,63 +10,71 @@ public class SpecificLongboardApiRequests {
 
     private static String specific_endpoint = "http://localhost:5000/longboard/%s";
 
-    public static void getLongboard(String id) {
+    public static String simpleSpecificLongboardRequest(String requestType, String id) {
         try {
-            HttpResponse<String> response = Unirest.get(String.format(specific_endpoint, id))
-                    .asString();
-            System.out.println(response.getBody());
+            HttpResponse<String> response;
+            String id_endpoint = String.format(specific_endpoint, id);
+
+            switch (requestType) {
+                case "get":
+                    response = Unirest.get(id_endpoint)
+                            .asString();
+                    break;
+
+                case "delete":
+                    response = Unirest.delete(id_endpoint)
+                            .asString();
+                    break;
+
+                case "options":
+                    response = Unirest.options(id_endpoint)
+                            .asString();
+                    break;
+
+                case "head":
+                    response = Unirest.head(id_endpoint)
+                            .asString();
+                    break;
+
+                default:
+                    return String.format("Invalid requestType: %s", requestType);
+            }
+
+            return response.getBody();
         } catch (UnirestException ignore) {
         }
+        return "";
     }
 
-    public static void putLongboard(String id, LinkedHashMap<String, String> args) {
+    public static String complexSpecificLongboardRequest(String requestType, String id, LinkedHashMap<String, String> args) {
         try {
-            HttpResponse<String> response = Unirest.put(String.format(specific_endpoint, id))
-                    .queryString("name", args.get("name"))
-                    .queryString("length", args.get("length"))
-                    .queryString("width", args.get("width"))
-                    .asString();
-            System.out.println(response.getBody());
-        } catch (UnirestException ignore) {
-        }
-    }
+            HttpResponse<String> response;
+            String id_endpoint = String.format(specific_endpoint, id);
 
-    public static void deleteLongboard(String id) {
-        try {
-            HttpResponse<String> response = Unirest.delete(String.format(specific_endpoint, id))
-                    .asString();
-            System.out.println(response.getBody());
-        } catch (UnirestException ignore) {
-        }
-    }
+            switch (requestType) {
+                case "put":
+                    response = Unirest.put(id_endpoint)
+                            .queryString("name", args.get("name"))
+                            .queryString("length", args.get("length"))
+                            .queryString("width", args.get("width"))
+                            .asString();
+                    break;
 
-    public static void optionsLongboard(String id) {
-        try {
-            HttpResponse<String> response = Unirest.options(String.format(specific_endpoint, id))
-                    .asString();
-            System.out.println(response.getBody());
-        } catch (UnirestException ignore) {
-        }
-    }
+                case "patch":
+                    response = Unirest.patch(id_endpoint)
+                            .queryString("name", args.get("name"))
+                            .queryString("length", args.get("length"))
+                            .queryString("width", args.get("width"))
+                            .asString();
+                    break;
 
-    public static void headLongboard(String id) {
-        try {
-            HttpResponse<String> response = Unirest.head(String.format(specific_endpoint, id))
-                    .asString();
-            System.out.println(response.getBody());
-        } catch (UnirestException ignore) {
-        }
-    }
+                default:
+                    return String.format("Invalid requestType: %s", requestType);
+            }
 
-    public static void patchLongboard(String id, LinkedHashMap<String, String> args) {
-        try {
-            HttpResponse<String> response = Unirest.patch(String.format(specific_endpoint, id))
-                    .queryString("name", args.get("name"))
-                    .queryString("length", args.get("length"))
-                    .queryString("width", args.get("width"))
-                    .asString();
-            System.out.println(response.getBody());
+            return response.getBody();
         } catch (UnirestException ignore) {
         }
+        return "";
     }
 }
