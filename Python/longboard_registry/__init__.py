@@ -91,6 +91,10 @@ class LongboardList(Resource):
 
         args = parser.parse_args()
         shelf = get_db()
+
+        if args.get("id") in shelf:
+            return {ApiMessage.MESSAGE: 'Longboard already exists', ApiMessage.DATA: {}}, 404
+
         shelf[args[LongboardTrait.ID]] = args
 
         return {ApiMessage.MESSAGE: 'Longboard registered', ApiMessage.DATA: args}, 201

@@ -1,11 +1,13 @@
 package LongboardApiCallsJava;
 
+import LongboardApiCallsJava.src.JPanelWithBackground;
+
+import javax.sound.sampled.*;
 import javax.swing.*;
 
-import LongboardApiCallsJava.src.LongboardApiRequests;
-import LongboardApiCallsJava.src.SpecificLongboardApiRequests;
-
-import java.util.LinkedHashMap;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -20,10 +22,23 @@ import java.util.LinkedHashMap;
 public class Main {
 
     public static void main(String[] args) {
+
+        // Set up application, set background image, set icon, load button sound, load+start background music
         JFrame appScreen = new JFrame("Longboard Storage App");
         appScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // TODO: aesthetics - icon image and sounds
+        try {
+            appScreen.setContentPane(new JPanelWithBackground("static/background.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Image icon = Toolkit.getDefaultToolkit().getImage("static/icon.png");
+        appScreen.setIconImage(icon);
+
+        Clip sound = loadClipAttempt();
+
+        // TODO: background music
 
         /**
          *         LinkedHashMap<String, String> new_args = new LinkedHashMap<>();
@@ -47,6 +62,52 @@ public class Main {
          System.out.println(LongboardApiRequests.simpleLongboardRequest("get"));
          */
 
+        // Get a longboard from a id
+        JLabel idLabel = new JLabel("ID: ");
+        idLabel.setBounds(20, 20, 80, 30);
+        appScreen.add(idLabel);
+
+        final JTextField userInput = new JTextField();
+        userInput.setBounds(100, 20, 200, 30);
+        appScreen.add(userInput);
+
+        JButton getLongboardButton = new JButton("Get Longboard");
+        getLongboardButton.setBounds(100, 60, 200, 30);
+        getLongboardButton.addActionListener(e -> {
+            try {
+                assert sound != null;
+                // TODO: button sound only plays once-- FIX
+                sound.start();
+
+                // TODO: use api here
+
+                JOptionPane.showMessageDialog(appScreen, "");
+            } catch (Exception el) {
+                el.printStackTrace();
+            }
+        });
+        appScreen.add(getLongboardButton);
+
+        // Finish setting up application
+        appScreen.setSize(935, 645);
+        appScreen.setLayout(null);
+        appScreen.setVisible(true);
+
+    }
+
+    /**
+     * Attempts to load the button sound and handles all exceptions.
+     */
+    private static Clip loadClipAttempt() {
+        try {
+            String soundName = "static/button-sound.wav";
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            return clip;
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
+        }
+        return null;
     }
 
 }

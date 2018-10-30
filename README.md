@@ -49,4 +49,12 @@ The requested resource could not be found but may be available in the future.
 
 ##### Acknowledgments
 There are two main sources of information that helped me incredibly: [Jake Wright](https://github.com/jakewright) and [Assertible](https://assertible.com/blog/7-http-methods-every-web-developer-should-know-and-how-to-test-them#head). Thanks for helping me learn more about APIs!
+<br><br>
+Links to images:
+- [Icon](https://thenounproject.com/term/longboard/377119/)
+- [Background(unedited)](https://www.redbubble.com/people/fangpunk/works/15574296-longboard-wave-t-shirt?p=art-print)
+
+Links to sounds:
+- [Button click](http://soundbible.com/1705-Click2.html)
+- [Background music]()
 
