@@ -28,7 +28,7 @@ public class LongboardApiRequests {
                             .asString();
                     break;
 
-                case "clear":
+                case "delete":
                     response = Unirest.delete(general_endpoint)
                             .asString();
                     break;
@@ -42,7 +42,11 @@ public class LongboardApiRequests {
                     return String.format("Invalid requestType: %s", requestType);
             }
 
-            return response.getBody();
+            if (response.getBody() != null) {
+                return response.getBody();
+            } else {
+                return "Success; No returned data";
+            }
         } catch (UnirestException ignore) {
         }
         return "";

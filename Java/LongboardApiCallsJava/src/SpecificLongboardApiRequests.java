@@ -53,7 +53,11 @@ public class SpecificLongboardApiRequests {
                     return String.format("Invalid requestType: %s", requestType);
             }
 
-            return response.getBody();
+            if (response.getBody() != null) {
+                return response.getBody();
+            } else {
+                return "Success; No returned data";
+            }
         } catch (UnirestException ignore) {
         }
         return "";
