@@ -19,6 +19,11 @@ public class SpecificLongboardApiRequests {
      * the body of the response from the api.
      */
     public static String simpleSpecificLongboardRequest(String requestType, String id) {
+
+        if (id.isEmpty()) {
+            return "Please provide a Longboard ID!";
+        }
+
         try {
             HttpResponse<String> response;
             String id_endpoint = String.format(specific_endpoint, id);
@@ -62,6 +67,11 @@ public class SpecificLongboardApiRequests {
      * @return the response body from the api or a helpful message signifying an invalid requestType.
      */
     public static String complexSpecificLongboardRequest(String requestType, String id, LinkedHashMap<String, String> args) {
+
+        if (id.isEmpty()) {
+            return "Please provide a Longboard ID!";
+        }
+
         try {
             HttpResponse<String> response;
             String id_endpoint = String.format(specific_endpoint, id);

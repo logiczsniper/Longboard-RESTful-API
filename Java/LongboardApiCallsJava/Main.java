@@ -1,6 +1,8 @@
 package LongboardApiCallsJava;
 
 import LongboardApiCallsJava.src.JPanelWithBackground;
+import LongboardApiCallsJava.src.LongboardApiRequests;
+import LongboardApiCallsJava.src.SpecificLongboardApiRequests;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -26,7 +28,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Set up application, set background image, set icon, load button sound, load+start background music
+        // Set up application, set background image, set icon, load button sound.
         JFrame appScreen = new JFrame("Longboard Storage App");
         appScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -38,8 +40,6 @@ public class Main {
 
         Image icon = Toolkit.getDefaultToolkit().getImage("static/icon.png");
         appScreen.setIconImage(icon);
-
-        // TODO: background music
 
         /* For reference when creating specific api calls in the ActionLister(s).
 
@@ -63,7 +63,11 @@ public class Main {
          System.out.println(LongboardApiRequests.simpleLongboardRequest("get"));
          */
 
+        // TODO: consider making a general Action Listener structure.
+        // TODO: consider having one text input for id followed by the specific requests, then the general requests.
+
         // Adding get panels
+        JTextField userInputGet = new JTextField();
         addElements(appScreen, new ArrayList<>(Arrays.asList(40, 60, 80, 30)),
                 new ArrayList<>(Arrays.asList(100, 60, 200, 30)), "Get Longboard",
                 new ArrayList<>(Arrays.asList(100, 100, 200, 30)), e -> {
@@ -71,9 +75,9 @@ public class Main {
 
                         playSoundAttempt();
 
-                        // TODO: use api here
+                        String response = SpecificLongboardApiRequests.simpleSpecificLongboardRequest("get", userInputGet.getText());
 
-                        JOptionPane.showMessageDialog(appScreen, "");
+                        JOptionPane.showMessageDialog(appScreen, response);
                     } catch (Exception el) {
                         el.printStackTrace();
                     }
@@ -83,15 +87,16 @@ public class Main {
 
                         playSoundAttempt();
 
-                        // TODO: use api here
+                        String response = LongboardApiRequests.simpleLongboardRequest("get");
 
-                        JOptionPane.showMessageDialog(appScreen, "");
+                        JOptionPane.showMessageDialog(appScreen, response);
                     } catch (Exception el) {
                         el.printStackTrace();
                     }
-                });
+                }, userInputGet);
 
         // Adding deletion panels
+        JTextField userInputDelete = new JTextField();
         addElements(appScreen, new ArrayList<>(Arrays.asList(40, 240, 80, 30)),
                 new ArrayList<>(Arrays.asList(100, 240, 200, 30)), "Delete Longboard",
                 new ArrayList<>(Arrays.asList(100, 280, 200, 30)), e -> {
@@ -99,9 +104,9 @@ public class Main {
 
                         playSoundAttempt();
 
-                        // TODO: use api here
+                        String response = SpecificLongboardApiRequests.simpleSpecificLongboardRequest("delete", userInputDelete.getText());
 
-                        JOptionPane.showMessageDialog(appScreen, "");
+                        JOptionPane.showMessageDialog(appScreen, response);
                     } catch (Exception el) {
                         el.printStackTrace();
                     }
@@ -111,15 +116,16 @@ public class Main {
 
                         playSoundAttempt();
 
-                        // TODO: use api here
+                        String response = LongboardApiRequests.simpleLongboardRequest("clear");
 
-                        JOptionPane.showMessageDialog(appScreen, "");
+                        JOptionPane.showMessageDialog(appScreen, response);
                     } catch (Exception el) {
                         el.printStackTrace();
                     }
-                });
+                }, userInputDelete);
 
         // Adding options panels
+        JTextField userInputOptions = new JTextField();
         addElements(appScreen, new ArrayList<>(Arrays.asList(40, 420, 80, 30)),
                 new ArrayList<>(Arrays.asList(100, 420, 200, 30)), "Options Longboard",
                 new ArrayList<>(Arrays.asList(100, 460, 200, 30)), e -> {
@@ -127,9 +133,9 @@ public class Main {
 
                         playSoundAttempt();
 
-                        // TODO: use api here
+                        String response = SpecificLongboardApiRequests.simpleSpecificLongboardRequest("options", userInputOptions.getText());
 
-                        JOptionPane.showMessageDialog(appScreen, "");
+                        JOptionPane.showMessageDialog(appScreen, response);
                     } catch (Exception el) {
                         el.printStackTrace();
                     }
@@ -139,13 +145,13 @@ public class Main {
 
                         playSoundAttempt();
 
-                        // TODO: use api here
+                        String response = LongboardApiRequests.simpleLongboardRequest("options");
 
-                        JOptionPane.showMessageDialog(appScreen, "");
+                        JOptionPane.showMessageDialog(appScreen, response);
                     } catch (Exception el) {
                         el.printStackTrace();
                     }
-                });
+                }, userInputOptions);
 
         // Adding post panels
         // TODO: addElements call for post
@@ -179,13 +185,12 @@ public class Main {
      */
     private static void addElements(JFrame appScreen, ArrayList<Integer> posOne, ArrayList<Integer> posTwo,
                                     String buttonOneLabel, ArrayList<Integer> posThree, ActionListener operatorOne,
-                                    String buttonTwoLabel, ArrayList<Integer> posFour, ActionListener operatorTwo) {
+                                    String buttonTwoLabel, ArrayList<Integer> posFour, ActionListener operatorTwo, JTextField userInput) {
 
         JLabel idLabel = new JLabel("ID: ");
         idLabel.setBounds(posOne.get(0), posOne.get(1), posOne.get(2), posOne.get(3));
         appScreen.add(idLabel);
 
-        JTextField userInput = new JTextField();
         userInput.setBounds(posTwo.get(0), posTwo.get(1), posTwo.get(2), posTwo.get(3));
         appScreen.add(userInput);
 
